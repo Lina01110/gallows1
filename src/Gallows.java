@@ -6,22 +6,48 @@ import static asciiArt.AsciiArt.AsciiArt;
 
 public class Gallows {
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String answer;
+        static Scanner scanner = new Scanner(System.in);
+        static String answer;
 
-        System.out.println("Сыграем в игру?Введите 'да' или 'нет': ");
-        answer = scanner.nextLine().trim().toLowerCase();
-        if (answer.equals("да")) {
-            System.out.println("Угадай животное");
-            GameManage.playGame(scanner);
-        } else {
-            System.out.println("До свидания");
+        public static void main(String[] args) {
+            gameStarter();
         }
-        scanner.close();
+
+        public static  String gameStarter() {
+            while (true) {
+                System.out.println("Сыграем в игру?Введите 'да' или 'нет': ");
+                answer = scanner.nextLine().trim().toLowerCase();
+                if (answer.equals("да")) {
+                    System.out.println("Угадай животное");
+                    GameManage.playGame(scanner);
+                } else if (answer.equals("нет")) {
+                    System.out.println("До свидания");
+                    return null;
+                } else {
+                    System.out.println("Введите значение 'да' или 'нет'");
+                }
+            }
+        }
+
+        public static boolean rePlay (){
+            do {
+                System.out.println("Сыграем еще раз??Введите 'да/нет' ");
+                answer = scanner.nextLine().trim().toLowerCase();
+                if (answer.equals("да")) {
+                    GameManage.playGame(scanner);
+                    return true;
+                }else if (answer.equals("нет")) {
+                    System.out.println("До свидания");
+                    return false;
+                } else {
+                    System.out.println("Введите значение 'да' или 'нет'");
+                }
+            } while (true);
+
+        }
     }
 
-    class GameManage {
+class GameManage {
 
         public static void playGame(Scanner scanner) {
 
@@ -59,17 +85,7 @@ public class Gallows {
                     System.out.println("Вы проиграли!Слово=" + wordToGuess);
                 }
             }
-
-            Scanner user = new Scanner(System.in);
-            String answer;
-
-            System.out.println("Сыграем еще раз??Введите 'да/нет' ");
-            answer = scanner.nextLine().trim().toLowerCase();
-            if (answer.equals("да")) {
-                GameManage.playGame(scanner);
-            }
+            Gallows.rePlay();
         }
-
     }
-}
 
